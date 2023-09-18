@@ -5,7 +5,11 @@
 //=============================================================================
 // TODO
 bool FunWithCycles::palindrome(const std::string & s) {
-    return false;
+    string flag = s;
+    for (int i = 0; i < s.length() / 2; ++i) {
+        if (s[i] != flag[s.length()-i-1]) return false;
+    }
+    return true;
 }
 
 
@@ -14,8 +18,20 @@ bool FunWithCycles::palindrome(const std::string & s) {
 //=============================================================================
 // TODO
 bool FunWithCycles::palindromeSentence(const std::string & s) {
-    return false;
+    string aux;
+    for (char c: s) {
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+            aux += char(tolower(c));
+        }
+    }
+    for (int i = 0; i < aux.length() / 2; i++) {
+        if (aux[i] != aux[aux.length()-i-1]) {
+            return false;
+        }
+    }
+    return true;
 }
+
 
 
 //=============================================================================
@@ -23,13 +39,25 @@ bool FunWithCycles::palindromeSentence(const std::string & s) {
 //=============================================================================
 // TODO
 int FunWithCycles::nextInterestingNumber(int n, int sum) {
-    return 0;
+    n++;
+    while (true) {
+        if (digitSum(n) == sum) return n;
+        n++;
+    }
 }
 
 // This auxiliary function should return the sum of the digits of n
 // TODO
 int FunWithCycles::digitSum(int n) {
-    return 0;
+    int aux = n;
+    int digit = aux;
+    int sum = 0;
+    while (aux > 0) {
+        digit = aux % 10;
+        sum += digit;
+        aux = aux / 10;
+    }
+    return sum;
 }
 
 
