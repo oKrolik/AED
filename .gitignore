@@ -1,0 +1,18 @@
+# Ignorar diretórios e arquivos relacionados ao JetBrains IDEA em qualquer local do projeto
+/**/.idea/
+**/*.iml
+
+# Ignorar diretórios gerados pelo CMake em qualquer local do projeto
+/**/cmake-build-*/
+
+# Ignorar arquivos gerados pelo SBT IDEA plugin em qualquer local do projeto
+/**/.idea_modules/
+
+# Ignorar arquivos relacionados ao SonarLint plugin em qualquer local do projeto
+/**/.idea/sonarlint/
+
+# Ignorar arquivos do Editor-based Rest Client em qualquer local do projeto
+/**/.idea/httpRequests
+
+# Ignorar o arquivo de configuração do projeto IntelliJ IDEA em qualquer local do projeto
+/**/*.iws
