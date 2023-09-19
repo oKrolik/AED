@@ -66,7 +66,15 @@ int FunWithCycles::digitSum(int n) {
 //=============================================================================
 // TODO
 int FunWithCycles::winter(const vector<int> & v) {
-    return 0;
+    int cur_len = 0;
+    int max_len = 0;
+    for (int i = 0; i < v.size()-1; ++i) {
+        int temp_diff = v[i] - v[i+1];
+        if (temp_diff > 0) cur_len++;
+        else cur_len = 0;
+        if (cur_len > max_len) max_len = cur_len;
+    }
+    return max_len;
 }
 
 
@@ -77,19 +85,38 @@ int FunWithCycles::winter(const vector<int> & v) {
 // a) count
 // TODO
 int FunWithCycles::count(const vector<int> & v, int n) {
-    return 0;
+    int count = 0;
+    for (int i = 0; i < v.size(); ++i) {
+        if (v[i] == n) count++;
+    }
+    return count;
 }
 
 // b) hasDuplicates
 // TODO
 bool FunWithCycles::hasDuplicates(const vector<int> & v) {
+    for (int i = 0; i < v.size(); ++i) {
+        int flag = FunWithCycles::count(v, v[i]);
+        if (flag != 1) return true;
+    }
     return false;
 }
 
 // c) removeDuplicates
 // TODO
 void FunWithCycles::removeDuplicates(vector<int> & v) {
-
+    int size = v.size();
+    for (int i = 0; i < size; ++i) {
+        for (int j = i + 1; j < size;) {
+            if (v[i] == v[j]) {
+                // Erase the duplicate element
+                v.erase(v.begin() + j);
+                size--; // Decrease the size of the vector
+            } else {
+                j++; // Move to the next element
+            }
+        }
+    }
 }
 
 // d) merge
