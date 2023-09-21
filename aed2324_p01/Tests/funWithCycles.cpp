@@ -134,13 +134,31 @@ vector<int> FunWithCycles::merge(const vector<int> & v1, const vector<int> & v2)
 // a) isPrime
 // TODO
 bool FunWithCycles::isPrime(int n) {
-    return false;
+    int count = 0;
+    for (int i = 1; i <= n; ++i) {
+        if (n % i == 0) count++;
+    }
+    return count == 2;
 }
 
 // b) factorize
 // TODO
 vector<int> FunWithCycles::factorize(int n) {
     vector<int> ans;
+    /*
+    while (n % 2 == 0) {
+        ans.push_back(2);
+        n /= 2;
+    }
+    for (int i = 3; i*i < n; i+=2) {
+        while(n % i == 0) {
+            ans.push_back(i);
+            n /= i;
+        }
+    }
+    if (n > 1)
+        ans.push_back(n);
+    */
     return ans;
 }
 
