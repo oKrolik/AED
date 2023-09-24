@@ -123,9 +123,32 @@ void FunWithCycles::removeDuplicates(vector<int> & v) {
 // TODO
 vector<int> FunWithCycles::merge(const vector<int> & v1, const vector<int> & v2) {
     vector<int> ans;
+    int i = 0; // Pointer for v1
+    int j = 0; // Pointer for v2
+
+    while (i < v1.size() && j < v2.size()) {
+        if (v1[i] <= v2[j]) {
+            ans.push_back(v1[i]);
+            i++;
+        } else if (v1[i] > v2[j]) {
+            ans.push_back(v2[j]);
+            j++;
+        }
+    }
+
+    // Add any remaining elements from v1 and v2
+    while (i < v1.size()) {
+        ans.push_back(v1[i]);
+        i++;
+    }
+
+    while (j < v2.size()) {
+        ans.push_back(v2[j]);
+        j++;
+    }
+
     return ans;
 }
-
 
 //=============================================================================
 // Exercise 6: Playing with prime numbers
@@ -145,12 +168,12 @@ bool FunWithCycles::isPrime(int n) {
 // TODO
 vector<int> FunWithCycles::factorize(int n) {
     vector<int> ans;
-    /*
+
     while (n % 2 == 0) {
         ans.push_back(2);
         n /= 2;
     }
-    for (int i = 3; i*i < n; i+=2) {
+    for (int i = 3; i*i <= n; i+=2) {
         while(n % i == 0) {
             ans.push_back(i);
             n /= i;
@@ -158,7 +181,7 @@ vector<int> FunWithCycles::factorize(int n) {
     }
     if (n > 1)
         ans.push_back(n);
-    */
+
     return ans;
 }
 
@@ -166,5 +189,7 @@ vector<int> FunWithCycles::factorize(int n) {
 // TODO
 vector<int> FunWithCycles::listPrimes(int n) {
     vector<int> ans;
+    for(int i = 2; i <= n; i++)
+        if (FunWithCycles::isPrime(i)) ans.push_back(i);
     return ans;
 }
