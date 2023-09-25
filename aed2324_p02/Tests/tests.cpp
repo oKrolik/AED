@@ -196,12 +196,12 @@ static void BM_Spiral(benchmark::State& state) {
 
 //NOTE: remove comments from respective BENCHMARKs to run complexity analysis
 
-/*
+
 BENCHMARK(BM_River)
     ->Unit(benchmark::kNanosecond)
     ->DenseRange(1 << 12, 1 << 16, 4096)
     ->Complexity();
-*/
+
 
 /*
 BENCHMARK(BM_Spiral)
