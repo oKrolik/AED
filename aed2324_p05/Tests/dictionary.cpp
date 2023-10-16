@@ -37,7 +37,7 @@ void Dictionary::addWord(WordMean wm)  {
 //=============================================================================
 //TODO
 bool WordMean::operator< (const WordMean& wm2) const {
-     return true;
+     return word < wm2.word;
 }
 
 //=============================================================================
@@ -45,14 +45,26 @@ bool WordMean::operator< (const WordMean& wm2) const {
 //=============================================================================
 //TODO
 void Dictionary::readFile(ifstream &f) {
+    string word, meaning;
+    set<WordMean> words;
+    while (getline(f, word) && getline(f, meaning)) {
+        WordMean wm(word, meaning);
+        words.insert(wm);
+    }
+    for (auto& wm: words) {
+        addWord(wm);
+    }
 }
 
 //=============================================================================
 // Subexercise 1.2: Print Dictionary
 //=============================================================================
 //TODO
-bool Dictionary::update(string w1, string m1) {
-    return true;
+void Dictionary::print() const {
+    for (auto& wm: words) {
+        cout << wm.getWord() << endl;
+        cout << wm.getMeaning() << endl;
+    }
 }
 
 //=============================================================================
@@ -60,12 +72,33 @@ bool Dictionary::update(string w1, string m1) {
 //=============================================================================
 //TODO
 string Dictionary::consult(string w1, WordMean& previous, WordMean& next) const {
-    return "";
+    for (auto& wm : words) {
+        if (w1 == wm.getWord()) {
+            return wm.getMeaning();
+        } else if (wm.getWord() < w1) {
+            previous = wm;
+        } else if (wm.getWord() > w1) {
+            next = wm;
+            break;
+        }
+    }
+    if (previous.getWord() == "") {
+        previous.setWord("");
+        previous.setMeaning("");
+    }
+    if (next.getWord() == "") {
+        next.setWord("");
+        next.setMeaning("");
+    }
+    return "word not found";
 }
+
 
 //=============================================================================
 // Subexercise 1.4: Update Dictionary
 //=============================================================================
 //TODO
-void Dictionary::print() const {
+bool Dictionary::update(string w1, string m1) {
+    return true;
 }
+
