@@ -99,6 +99,14 @@ string Dictionary::consult(string w1, WordMean& previous, WordMean& next) const 
 //=============================================================================
 //TODO
 bool Dictionary::update(string w1, string m1) {
-    return true;
+    for(WordMean wm: words) {
+        if(wm.getWord() == w1) {
+            wm.setMeaning(m1);
+            return true;
+        }
+    }
+    WordMean wm = WordMean(w1, m1);
+    words.insert(wm);
+    return false;
 }
 
