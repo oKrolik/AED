@@ -262,6 +262,8 @@ bool Graph<T>::removeVertex(const T &in) {
 template <class T>
 vector<T> Graph<T>::dfs() const {
     vector<T> res;
+    for (auto &vertex: vertexSet)
+        if (!vertex->visited) dfsVisit(vertex, res);
     return res;
 }
 
@@ -272,6 +274,13 @@ vector<T> Graph<T>::dfs() const {
 // TODO
 template <class T>
 void Graph<T>::dfsVisit(Vertex<T> *v, vector<T> & res) const {
+    v->setVisited(true);
+    res.push_back(v->info);
+    for (auto &edge: v->adj) {
+        auto neighbor = edge.getInfo();
+        if (!neighbor.visited)
+            dfsVisit(neighbor, res);
+    }
 }
 
 //=============================================================================

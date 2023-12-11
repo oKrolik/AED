@@ -223,7 +223,7 @@ bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
     Vertex<T> *sourcVertex = findVertex(sourc);
     Vertex<T> *destVertex = findVertex(dest);
     if (sourcVertex == nullptr || destVertex == nullptr) return false;
-    return false;
+    return sourcVertex->removeEdgeTo(destVertex);
 }
 
 /*
@@ -235,6 +235,11 @@ bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
 template <class T>
 bool Vertex<T>::removeEdgeTo(Vertex<T> *d) {
     // HINT: use an iterator to scan the "adj" vector and then erase the edge.
+    for (auto it = adj.begin(); it != adj.end(); it++)
+        if (it->dest == d) {
+            adj.erase(it);
+            return true;
+        }
 	return false;
 }
 
@@ -251,7 +256,16 @@ template <class T>
 bool Graph<T>::removeVertex(const T &in) {
     // HINT: use an iterator to scan the "vertexSet" vector and then erase the vertex.
     // HINT: take advantage of "removeEdgeTo" to remove incoming edges.
-	return false;
+    for (auto it = vertexSet.begin(); it != vertexSet.end(); it++)
+        if ((*it)->info  == in) {
+            auto v = *it;
+            vertexSet.erase(it);
+            for (auto u : vertexSet)
+                u->removeEdgeTo(v);
+            delete v;
+            return true;
+        }
+    return false;
 }
 
 #endif /* GRAPH_H_ */
