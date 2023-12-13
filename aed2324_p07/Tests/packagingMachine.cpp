@@ -31,11 +31,12 @@ unsigned PackagingMachine::loadObjects(vector<Object> &objs) {
     unsigned loadedCount = 0;
     for(auto it = objs.begin(); it != objs.end(); ++it) {
         if (it->getWeight() <= boxCapacity) {
-            objects.push(*it);
-            it = objs.erase(it);
             loadedCount++;
+            objects.push(*it);
+            ++it;
+            it = objs.erase(prev(it,1));
+            it -= 2;
         }
-        else ++it;
     }
 	return loadedCount;
 }
@@ -46,7 +47,21 @@ unsigned PackagingMachine::loadObjects(vector<Object> &objs) {
 //=============================================================================
 // TODO
 Box PackagingMachine::searchBox(Object& obj) {
-    return Box(0);
+    Box res;
+    HeapBox aux;
+    bool found = false;
+    while (!boxes.empty()) {
+        if (boxes.top().getFree() >= obj.getWeight() && !found) {
+            found = true;
+            res = boxes.top();
+        } else {
+            aux.push(boxes.top());
+        }
+        boxes.pop();
+    }
+    boxes = aux;
+    if (found) return res;
+    return Box();
 }
 
 

@@ -41,12 +41,10 @@ unsigned Box::getSize() const {
 //=============================================================================
 //TODO
 bool Object::operator<(const Object& o1) const {
-    if (o1.getWeight() < weight) return true;
-    return false;
+    return weight < o1.getWeight();
 }
 
 //TODO
 bool Box::operator<(const Box& b1) const {
-    if (b1.getFree() < capacity) return true;
-    return false;
+    return free > b1.getFree();
 }
